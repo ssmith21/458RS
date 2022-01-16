@@ -1,12 +1,10 @@
 import { useState } from 'react'
-
 import Header from './components/Header.js'
-
-
-
 import Resources from './components/Resources.js'
+import AddResource from './components/AddResource.js'
 
 function App() {
+  const [showAddResource, setShowAddResource] = useState(false)
   const [resourceList, setResources] = useState(
     [
         {
@@ -52,6 +50,15 @@ function App() {
     ]
 )
 
+  const addResource = (resource) => {
+    const id = Math.floor(Math.random()*10000)+1
+    const newResource = {id: id, ...resource}
+    setResources([...resourceList, newResource])
+  }
+  
+  const deleteResource = (id) => {
+    setResources(resourceList.filter(r => r.id!==id))
+  }
 
 
   /* --------- Resources page --------- */
@@ -60,9 +67,18 @@ function App() {
       <Header
         title='Resources Page'
         notice='View and edit resources for reservations.'
+        onAdd={()=>{setShowAddResource(!showAddResource)}}
+        showAdd={showAddResource}
       />
-      <Resources resources={resourceList}/>
-
+      {showAddResource && <AddResource onAdd={addResource}/>}
+      {
+        resourceList.length > 0 
+        ? <Resources 
+            resources={resourceList}
+            onDelete={deleteResource}
+        />
+        : <h3>There are no resources to view</h3>
+      }
     </div>
   );
 }
