@@ -4,10 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  HomePage,
+  LoginPage,
+  ResourcePage,
+} from "./pages";
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/resource" element={<ResourcePage />} />
+    </Routes>
+  </Router>,
   document.getElementById('root')
 );
 
