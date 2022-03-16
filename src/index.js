@@ -1,26 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+//import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {ApolloProvider} from 'react-apollo';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import client from './apollo';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import {
-  HomePage,
-  LoginPage,
-  ResourcePage,
-} from "./pages";
+
 
 ReactDOM.render(
-  <Router>
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/resource" element={<ResourcePage />} />
-    </Routes>
-  </Router>,
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>,
   document.getElementById('root')
 );
+if(module.hot) module.hot.accept();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
