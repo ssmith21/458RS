@@ -1,10 +1,28 @@
-import React from 'react';
 import '../Css/login.css';
-import { Link } from "react-router-dom";
-import Button from '../components/Button'
-const Login = (props) => {
-    return (
-        <div className="container">
+
+import React, { Component } from 'react'
+
+export default class Loginpage extends Component {
+	constructor(props){
+		super(props)
+		this.state ={
+		  username: '',	  
+		  password: '',	  
+		}
+	  }
+	  onChange(e){
+		console.log(e.target.name)
+		this.setState({
+		  [e.target.name] : e.target.value
+		})
+	  }
+	  register= ()=>{
+        console.log(this.state)
+    }
+
+  render() {
+	return (
+		<div className="container">
         <div className="d-flex justify-content-center h-100">
 		<div className="card">
 			<div className="card-header">
@@ -21,31 +39,29 @@ const Login = (props) => {
 						<div className="input-group-prepend">
 							<span className="input-group-text"><i className="fas fa-user"></i></span>
 						</div>
-						<input type="text" id="logname" onChange={props.log} className="form-control" placeholder="username"/>
+						<input type='text' name='username' value={this.state.username} onChange={this.onChange.bind(this)} className="form-control" placeholder="UserName"/>
 						
 					</div>
 					<div className="input-group form-group">
 						<div className="input-group-prepend">
 							<span className="input-group-text"><i className="fas fa-key"></i></span>
 						</div>
-						<input type="password" id="logpass"  onChange={props.log} className="form-control" placeholder="password"/>
+						<input type="password" name='password' value={this.state.password} onChange={this.onChange.bind(this)}  className="form-control" placeholder="Password"/>
 					</div>
 					
 					<div className="form-group">
-						<input type="submit" onClick={props.current} value="Login" className="btn float-right login_btn"/>
+						<button type="button" onClick={this.register} className="btn float-right login_btn">Login</button>
 					</div>
 				</form>
 			</div>
 			<div className="card-footer">
 				<div className="d-flex justify-content-center links">
-					Don't have an account?<Link to ='/register'> <Button text='register now'  color='blue'/></Link>
+					Don't have an account?<button type="button" onClick={()=>{window.location.href="http://localhost:3000/register"} }className="btnSubmit">Register</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	    </div>
-	
-    );
+	)
+  }
 }
-
-export default Login;
